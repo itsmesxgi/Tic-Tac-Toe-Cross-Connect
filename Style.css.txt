@@ -1,0 +1,178 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+
+}
+
+:root {
+    --orange: #F2C14E;
+    --winning-blocks:   #202a35b2;
+    
+}
+
+body {
+    color: var(--orange);
+    font-family: 'Finger Paint', cursive;
+    background-image: url('https://i.pinimg.com/originals/ac/96/80/ac9680c31e6962428ea4ea48a9cb2588.jpg');
+    background-size: cover; 
+    background-attachment: fixed; 
+}
+
+h1 {
+    font-size: 100px;
+    text-transform: uppercase;
+}
+
+.container {
+    padding: 40px;
+    height: 100vh;
+    display: flex;
+    text-shadow: 2px 2px #2b2b3f;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    background-color: rgba(55, 80, 92, 0.623); 
+    border-radius: 10px; 
+}
+
+#gameboard {
+    width: 300px; 
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.box {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--orange);
+    font-size: 100px;
+    border-right: 3px solid;
+    border-bottom: 3px solid;
+    
+}
+
+.box:nth-child(3n) {
+    border-right: none; 
+}
+
+.box:nth-child(6) ~ .box {
+    border-bottom: none; 
+} 
+
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: var(--orange);
+    color: hsl(0, 0%, 20%);
+    border-color: var(--orange);
+    font-size: 2em;
+    transition: 200ms transform;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    
+}
+
+
+
+.developers {
+    margin-top: 20px; 
+    text-align: center; 
+    color: var(--orange); 
+    text-shadow: 1px 1px #2b2b3f;
+    font-size: 15px; 
+    font-family: 'Calibri', sans-serif; 
+}
+
+.developers p {
+    margin: 5px 0; 
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+#how-to-play {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;  
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#how-to-play h3 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+#how-to-play p {
+    text-align: justify;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    
+}
+
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 2em;
+    cursor: pointer;
+    
+}
+
+
+#name-entry label {
+    font-family: 'Calibri', sans-serif; 
+    font-size: 1.2em; 
+    margin: 10px 0; 
+    
+}
+
+#name-entry input {
+    
+    font-family:'Calibri';
+    font-size: 1em; 
+    padding: 5px; 
+    margin-bottom: 15px;
+}
+
+#confetti { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.scoreboard {
+    font-family: 'Arial Black', sans-serif; 
+}
+
+.scoreboard p {
+    font-size: 30px; 
+}

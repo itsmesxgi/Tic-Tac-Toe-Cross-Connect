@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="container">
+        <div id="title-container">
+            <h1 id="playerText">Tic Tac Toe</h1>
+            <button id="startBtn">Start</button>
+            <button id="howToPlayBtn">How to Play</button> <!-- New button added here -->
+        </div>
+
+        <div id="name-entry" class="hidden">
+            <h2>Enter Player Names</h2>
+            <form id="nameForm">
+                <label for="player1">Player 1 Name:</label>
+                <input type="text" id="player1" required>
+                <br>
+                <label for="player2">Player 2 Name:</label>
+                <input type="text" id="player2" required>
+                <br>
+                <button type="submit" id="playBtn">Play</button>
+            </form>
+        </div>
+
+        <div id="game-view" class="hidden">
+            <button id="restartBtn">Restart</button>
+            <button id="exitBtn" class="hidden">Exit</button>
+            
+            <div id="gameboard">
+                <!-- Game grid will be dynamically generated -->
+            </div>
+
+        <div id="game-view">
+            <button id="continueBtn">Continue</button>
+            </div>
+            <div class="scoreboard">
+                <p id="player1Score">Player 1 Score: <span id="xScore">0</span></p>
+                <p id="player2Score">Player 2 Score: <span id="oScore">0</span></p>
+            </div>
+        </div>
+
+        <!-- How to Play Interface -->
+        <div id="how-to-play" class="hidden">
+            
+            <h3>Rules of Tic Tac Toe</h3>
+            <ol>
+                <p>1. The game is played on a grid that's 3 squares by 3 squares.</p>
+                <p>2. Player 1 os X and Player 2 is O. Players take turns putting their marks in empty squares.</p>
+                <p>3. The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.</p>
+                <p>4. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.</p>
+            </ol>
+            <button id="backToMenuBtn">Back to Menu</button>
+        </div>
+
+        <!-- Developers Info -->
+        <div class="developers">
+            <p>GAME DEVELOPERS</p>
+            <p>SOBREMISANA, G.M.S.</p>
+            <p>SALIPOT, P.B.O.</p>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="/Game_logic.js"></script>
+</body>
+</html>

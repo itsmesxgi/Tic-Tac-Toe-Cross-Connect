@@ -1,0 +1,192 @@
+// Elements
+let startBtn = document.getElementById('startBtn')
+let howToPlayBtn = document.getElementById('howToPlayBtn') 
+let nameEntry = document.getElementById('name-entry')
+let nameForm = document.getElementById('nameForm')
+let playBtn = document.getElementById('playBtn')
+let gameView = document.getElementById('game-view')
+let restartBtn = document.getElementById('restartBtn')
+let continueBtn = document.getElementById('continueBtn')
+let exitBtn = document.getElementById('exitBtn')
+let playerText = document.getElementById('playerText')
+let gameboard = document.getElementById('gameboard')
+let xScoreElement = document.getElementById('xScore')
+let oScoreElement = document.getElementById('oScore')
+let player1ScoreElement = document.getElementById('player1Score')
+let player2ScoreElement = document.getElementById('player2Score')
+let winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winning-blocks')
+let howToPlaySection = document.getElementById('how-to-play') 
+let backToMenuBtn = document.getElementById('backToMenuBtn') 
+
+const O_TEXT = "O"
+const X_TEXT = "X"
+let currentPlayer = X_TEXT
+let spaces = Array(9).fill(null)
+let xScore = 0
+let oScore = 0
+let gameActive = true 
+let player1Name = ''
+let player2Name = ''
+
+// Confetti setup
+const jsConfetti = new JSConfetti()
+
+// Start Button Event
+startBtn.addEventListener('click', () => {
+    showElement(nameEntry)
+    hideElement(startBtn)
+    hideElement(howToPlayBtn) 
+})
+
+// How to Play Button Event
+howToPlayBtn.addEventListener('click', () => {
+    showElement(howToPlaySection) 
+    hideElement(startBtn) 
+    hideElement(howToPlayBtn)
+})
+
+// Back to Menu Button Event
+backToMenuBtn.addEventListener('click', () => {
+    showElement(startBtn) 
+    showElement(howToPlayBtn) 
+    hideElement(howToPlaySection) 
+    hideElement(nameEntry) 
+    hideElement(gameView) 
+})
+
+// Play Button Event
+nameForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    player1Name = document.getElementById('player1').value
+    player2Name = document.getElementById('player2').value
+    playerText.innerHTML = `${player1Name} (X) vs ${player2Name} (O)`
+    updateScoreLabels() 
+    startGame()
+})
+
+continueBtn.addEventListener('click', () => {
+    restart(false) 
+})
+
+restartBtn.addEventListener('click', () => {
+    restart(true) 
+})
+
+exitBtn.addEventListener('click', () => {
+    window.location.reload() 
+})
+
+const startGame = () => {
+    spaces = Array(9).fill(null)
+    gameboard.innerHTML = '' 
+    for (let i = 0; i < 9; i++) {
+        let box = document.createElement('div')
+        box.className = 'box'
+        box.id = i
+        gameboard.appendChild(box)
+    }
+    boxes = Array.from(document.getElementsByClassName('box'))
+    boxes.forEach(box => box.addEventListener('click', boxClicked))
+    showElement(gameView)
+    hideElement(nameEntry)
+    hideElement(continueBtn) 
+    showElement(exitBtn) 
+    playerText.innerText = `Tic Tac Toe`
+    gameActive = true 
+}
+
+function boxClicked(e) {
+    if (!gameActive) return 
+
+    const id = e.target.id
+
+    if (!spaces[id]) {
+        spaces[id] = currentPlayer
+        e.target.innerText = currentPlayer
+
+        if (playerHasWon() !== false) {
+            playerText.innerHTML = `${currentPlayer === X_TEXT ? player1Name : player2Name} has won!`
+            let winning_blocks = playerHasWon()
+            winning_blocks.map(box => boxes[box].style.backgroundColor = winnerIndicator)
+            updateScore()
+            gameActive = false 
+            showElement(continueBtn) 
+
+           
+            jsConfetti.addConfetti({
+                emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+            }).then(() => jsConfetti.addConfetti())
+            
+            return
+        }
+
+        if (spaces.every(space => space !== null)) { 
+            playerText.innerHTML = 'It\'s a draw!'
+            gameActive = false
+            showElement(continueBtn) 
+            return
+        }
+
+        currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT
+    }
+}
+
+const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
+
+function playerHasWon() {
+    for (const condition of winningCombos) {
+        let [a, b, c] = condition
+        if (spaces[a] && (spaces[a] == spaces[b] && spaces[a] == spaces[c])) {
+            return [a, b, c]
+        }
+    }
+    return false
+}
+
+function updateScore() {
+    if (currentPlayer == X_TEXT) {
+        xScore++
+        xScoreElement.innerText = xScore
+        player1ScoreElement.innerText = `${player1Name} (X) Score: ${xScore}`
+    } else {
+        oScore++
+        oScoreElement.innerText = oScore
+        player2ScoreElement.innerText = `${player2Name} (O) Score: ${oScore}`
+    }
+}
+
+function updateScoreLabels() {
+    player1ScoreElement.innerText = `${player1Name} (X) Score: ${xScore}`
+    player2ScoreElement.innerText = `${player2Name} (O) Score: ${oScore}`
+}
+
+function restart(resetScore) {
+    spaces.fill(null)
+    boxes.forEach(box => {
+        box.innerText = ''
+        box.style.backgroundColor = ''
+    })
+    playerText.innerHTML = `Tic Tac Toe`
+    currentPlayer = X_TEXT
+    if (resetScore) {
+        xScore = 0
+        oScore = 0
+        xScoreElement.innerText = xScore
+        oScoreElement.innerText = oScore
+        updateScoreLabels() 
+    }
+    gameActive = true 
+    hideElement(continueBtn) 
+}
+
+const showElement = element => element.classList.remove('hidden')
+const hideElement = element => element.classList.add('hidden')
